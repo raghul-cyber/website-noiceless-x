@@ -222,7 +222,7 @@ export const SpatialArchitectureSection: React.FC = () => {
   const [selectedModule, setSelectedModule] = useState<ArchModule>(MODULES[7]); // Controller default
 
   return (
-    <section id="architecture" className="relative py-24 tactical-grid-bg border-b border-[#143526]">
+    <section id="architecture" className="relative py-24 tactical-grid-bg border-b border-[#143526] scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

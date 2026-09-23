@@ -11,7 +11,7 @@ export const DatasetSection: React.FC = () => {
   const featuredBenchmarks = HIGH_PRIORITY_DATASETS.slice(0, 6);
 
   return (
-    <section id="datasets" className="relative py-24 tactical-grid-bg border-b border-[#143526]">
+    <section id="datasets" className="relative py-24 tactical-grid-bg border-b border-[#143526] scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
