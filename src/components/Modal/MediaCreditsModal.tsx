@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X, ExternalLink, ShieldCheck, FileCheck, CheckCircle2, Video, Camera, Compass } from 'lucide-react';
 import { useSimulationStore, simulationStore } from '../../store/useSimulationStore';
 import { MEDIA_MANIFEST } from '../../data/mediaManifest';
@@ -34,10 +35,13 @@ export const MediaCreditsModal: React.FC = () => {
 
   if (!mediaCreditsModalOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08100c]/85 backdrop-blur-md animate-in fade-in duration-200">
+  const modalContent = (
+    <div 
+      className="fixed inset-x-0 bottom-0 top-16 z-50 flex items-center justify-center p-3 sm:p-5 bg-[#08100c]/92 backdrop-blur-md animate-in fade-in duration-200 overflow-hidden"
+      onClick={() => simulationStore.setMediaCreditsModalOpen(false)}
+    >
       <div 
-        className="w-full max-w-4xl max-h-[85vh] bg-[#0d1511] border border-[#3b4a41] rounded-sm shadow-2xl flex flex-col overflow-hidden"
+        className="w-full max-w-4xl max-h-full bg-[#0d1511] border border-[#3b4a41] rounded-sm shadow-2xl flex flex-col overflow-hidden my-auto shrink-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
@@ -173,4 +177,6 @@ export const MediaCreditsModal: React.FC = () => {
       </div>
     </div>
   );
+
+  return typeof document !== 'undefined' ? createPortal(modalContent, document.body) : modalContent;
 };

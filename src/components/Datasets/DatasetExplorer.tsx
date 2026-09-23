@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Search, X, Filter, Database, Shield, ExternalLink, ArrowUpDown, Check, AlertCircle } from 'lucide-react';
 import { DATASETS_LIST, DATASET_CATEGORIES, DatasetCategory, DatasetItem } from '../../data/datasets';
 import { DatasetCard } from './DatasetCard';
@@ -80,17 +81,21 @@ export const DatasetExplorer: React.FC<DatasetExplorerProps> = ({ isOpen, onClos
 
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div
       role="dialog"
       aria-modal="true"
       aria-label="118 Audio Datasets Explorer"
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-[#040806]/85 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-x-0 bottom-0 top-16 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-[#040806]/92 backdrop-blur-md animate-in fade-in duration-200 overflow-hidden"
+      onClick={onClose}
     >
-      <div className="relative w-full max-w-6xl max-h-[92vh] flex flex-col bg-[#0b130e] border border-[#23382b] rounded-sm shadow-2xl overflow-hidden font-sans">
+      <div 
+        className="relative w-full max-w-6xl max-h-full flex flex-col bg-[#0b130e] border border-[#23382b] rounded-sm shadow-2xl overflow-hidden font-sans my-auto shrink-0"
+        onClick={(e) => e.stopPropagation()}
+      >
         
         {/* Modal Header */}
-        <div className="p-4 sm:p-6 border-b border-[#1b2b22] bg-[#0d1611]/90 flex items-center justify-between gap-4">
+        <div className="p-3.5 sm:p-5 border-b border-[#1b2b22] bg-[#0d1611]/95 flex items-center justify-between gap-4 shrink-0">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded bg-[#143526] border border-[#00e599]/30 text-[#00e599]">
               <Database size={18} />
@@ -207,7 +212,7 @@ export const DatasetExplorer: React.FC<DatasetExplorerProps> = ({ isOpen, onClos
 
         {/* Selected Dataset Detail Panel (if active) */}
         {selectedDataset && (
-          <div className="p-4 bg-[#0a120e] border-b border-[#1b2b22]">
+          <div className="p-3 sm:p-4 bg-[#0a120e] border-b border-[#1b2b22] shrink-0 max-h-56 sm:max-h-64 overflow-y-auto">
             <DatasetDetailPanel
               dataset={selectedDataset}
               onClose={() => setSelectedDataset(null)}
@@ -216,7 +221,7 @@ export const DatasetExplorer: React.FC<DatasetExplorerProps> = ({ isOpen, onClos
         )}
 
         {/* Dataset Cards Grid */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#0b140f] scrollbar-thin">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-5 bg-[#0b140f] scrollbar-thin min-h-0">
           {filteredDatasets.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
               {filteredDatasets.map((dataset) => (
@@ -249,7 +254,7 @@ export const DatasetExplorer: React.FC<DatasetExplorerProps> = ({ isOpen, onClos
         </div>
 
         {/* Modal Footer / Legal Notice */}
-        <div className="p-3 sm:p-4 bg-[#08100c] border-t border-[#1b2b22] flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] font-mono text-[#6c8072]">
+        <div className="p-3 sm:p-4 bg-[#08100c] border-t border-[#1b2b22] flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] font-mono text-[#6c8072] shrink-0">
           <div className="flex items-center gap-2">
             <Shield size={12} className="text-[#00e599] shrink-0" />
             <span>
@@ -274,4 +279,6 @@ export const DatasetExplorer: React.FC<DatasetExplorerProps> = ({ isOpen, onClos
       </div>
     </div>
   );
+
+  return typeof document !== 'undefined' ? createPortal(modalContent, document.body) : modalContent;
 };

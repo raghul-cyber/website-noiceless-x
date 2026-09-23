@@ -26,7 +26,7 @@ export const YAMNetSection: React.FC = () => {
   };
 
   return (
-    <section id="yamnet" className="relative py-24 border-b border-[#143526]">
+    <section id="yamnet" className="relative py-24 border-b border-[#143526] scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

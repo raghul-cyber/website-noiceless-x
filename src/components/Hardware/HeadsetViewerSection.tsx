@@ -154,7 +154,7 @@ export const HeadsetViewerSection: React.FC = () => {
     : '/media/images/unsplash_soldier_headset_vehicle.jpg';
 
   return (
-    <section id="headset" className="relative py-24 tactical-grid-bg border-b border-[#143526]">
+    <section id="headset" className="relative py-24 tactical-grid-bg border-b border-[#143526] scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
