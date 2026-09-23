@@ -5,12 +5,21 @@ interface Hotspot {
   id: string;
   name: string;
   shortName: string;
-  xPercent: number; // Position on photograph (%)
-  yPercent: number;
+  pinNumber: string;
   category: 'ACOUSTIC TRANSDUCER' | 'MECHANICAL ENCLOSURE' | 'ELECTRICAL HARNESS' | 'EDGE COMPUTE';
   role: string;
   acousticFunction: string;
   physicalSpec: string;
+  closeup: {
+    xPercent: number;
+    yPercent: number;
+    tooltipAlign?: 'left' | 'right' | 'center';
+  };
+  vehicle: {
+    xPercent: number;
+    yPercent: number;
+    tooltipAlign?: 'left' | 'right' | 'center';
+  };
 }
 
 const HOTSPOTS: Hotspot[] = [
@@ -18,72 +27,126 @@ const HOTSPOTS: Hotspot[] = [
     id: 'ref_mic',
     name: 'External Reference Microphone',
     shortName: 'REF MIC x(n)',
-    xPercent: 44,
-    yPercent: 48,
+    pinNumber: '06',
     category: 'ACOUSTIC TRANSDUCER',
     role: 'Captures incoming environmental sound field d(t) prior to acoustic penetration through ear cup aperture.',
     acousticFunction: 'Supplies primary reference signal vector x(n) to the FxLMS adaptive filter core.',
-    physicalSpec: 'Omnidirectional high-SPL electret transducer mounted flush on the exterior shell of the left ear cup.'
+    physicalSpec: 'Omnidirectional high-SPL electret transducer mounted flush on the exterior shell of the left ear cup.',
+    closeup: {
+      xPercent: 94.0,
+      yPercent: 38.0,
+      tooltipAlign: 'right'
+    },
+    vehicle: {
+      xPercent: 13.0,
+      yPercent: 41.0,
+      tooltipAlign: 'left'
+    }
   },
   {
     id: 'error_mic',
     name: 'Internal Error Microphone',
     shortName: 'ERROR MIC e(n)',
-    xPercent: 52,
-    yPercent: 52,
+    pinNumber: '07',
     category: 'ACOUSTIC TRANSDUCER',
     role: 'Monitors the residual sound pressure inside the ear cavity directly near the tympanic membrane entrance.',
     acousticFunction: 'Generates feedback error signal e(n) = d(n) - y\'(n) to drive gradient weight adaptation W(n+1).',
-    physicalSpec: 'Sub-miniature electret capsule seated inside foam baffle adjacent to the 40mm speaker aperture.'
+    physicalSpec: 'Sub-miniature electret capsule seated inside foam baffle adjacent to the 40mm speaker aperture.',
+    closeup: {
+      xPercent: 87.5,
+      yPercent: 62.0,
+      tooltipAlign: 'right'
+    },
+    vehicle: {
+      xPercent: 20.0,
+      yPercent: 47.0,
+      tooltipAlign: 'left'
+    }
   },
   {
     id: 'comm_mic',
     name: 'Communication Microphone',
     shortName: 'COMMS BOOM MIC',
-    xPercent: 62,
-    yPercent: 68,
+    pinNumber: '08',
     category: 'ACOUSTIC TRANSDUCER',
     role: 'Captures the operator vocal communication for tactical radio transmission and intercom routing.',
     acousticFunction: 'Integrated with Voice Activity Detection (VAD) to freeze anti-noise synthesis during speech transmission.',
-    physicalSpec: 'Flexible gooseneck boom with dual-port noise-canceling differential acoustic vents.'
+    physicalSpec: 'Flexible gooseneck boom with dual-port noise-canceling differential acoustic vents.',
+    closeup: {
+      xPercent: 48.0,
+      yPercent: 85.0,
+      tooltipAlign: 'center'
+    },
+    vehicle: {
+      xPercent: 27.0,
+      yPercent: 54.0,
+      tooltipAlign: 'left'
+    }
   },
   {
     id: 'ear_cup',
     name: 'Acoustic Seal Ear Cup',
     shortName: 'EAR CUP & SEAL',
-    xPercent: 38,
-    yPercent: 42,
+    pinNumber: '•',
     category: 'MECHANICAL ENCLOSURE',
     role: 'Provides structural acoustic barrier against high-frequency environmental noise above 1 kHz.',
     acousticFunction: 'Delivers ~22 dB passive attenuation, allowing the active ANC system to focus entirely on low-frequency roar (<1 kHz).',
-    physicalSpec: 'Milled graphite polymer chassis with viscoelastic memory foam cushions for airtight temporal seal.'
+    physicalSpec: 'Milled graphite polymer chassis with viscoelastic memory foam cushions for airtight temporal seal.',
+    closeup: {
+      xPercent: 91.0,
+      yPercent: 52.0,
+      tooltipAlign: 'right'
+    },
+    vehicle: {
+      xPercent: 16.5,
+      yPercent: 44.0,
+      tooltipAlign: 'left'
+    }
   },
   {
     id: 'cable',
     name: 'Tactical Harness Cabling',
     shortName: 'BRAIDED CABLE',
-    xPercent: 32,
-    yPercent: 72,
+    pinNumber: '•',
     category: 'ELECTRICAL HARNESS',
     role: 'Transmits analog microphone voltages and amplified speaker anti-noise between headset and processor.',
     acousticFunction: 'Shielded differential twisted-pair lines prevent electromagnetic interference from aircraft avionics.',
-    physicalSpec: 'Mil-spec braided Kevlar jacket with IP67 sealed quick-disconnect bayonet terminal.'
+    physicalSpec: 'Mil-spec braided Kevlar jacket with IP67 sealed quick-disconnect bayonet terminal.',
+    closeup: {
+      xPercent: 24.5,
+      yPercent: 74.0,
+      tooltipAlign: 'left'
+    },
+    vehicle: {
+      xPercent: 16.0,
+      yPercent: 63.0,
+      tooltipAlign: 'left'
+    }
   },
   {
     id: 'processor_conn',
     name: 'Processor Connection & Edge Unit',
     shortName: 'RASPBERRY PI LINK',
-    xPercent: 24,
-    yPercent: 88,
+    pinNumber: '•',
     category: 'EDGE COMPUTE',
     role: 'Routes multi-channel audio stream into the waist-mounted Raspberry Pi embedded processing unit.',
     acousticFunction: 'Connects to 24-bit 48kHz I2S Audio HAT executing C++20 FxLMS/NLMS and quantized YAMNet.',
-    physicalSpec: 'Waist-mounted tactical pouch enclosure with passive heatsinking and isolated battery power pack.'
+    physicalSpec: 'Waist-mounted tactical pouch enclosure with passive heatsinking and isolated battery power pack.',
+    closeup: {
+      xPercent: 21.0,
+      yPercent: 92.0,
+      tooltipAlign: 'left'
+    },
+    vehicle: {
+      xPercent: 23.0,
+      yPercent: 84.0,
+      tooltipAlign: 'left'
+    }
   }
 ];
 
 export const HeadsetViewerSection: React.FC = () => {
-  const [selectedHotspot, setSelectedHotspot] = useState<Hotspot>(HOTSPOTS[0]);
+  const [selectedHotspot, setSelectedHotspot] = useState<Hotspot>(HOTSPOTS[3]); // Default to EAR CUP & SEAL
   const [activePhoto, setActivePhoto] = useState<'closeup' | 'vehicle'>('closeup');
 
   const photoPath = activePhoto === 'closeup'
@@ -160,15 +223,18 @@ export const HeadsetViewerSection: React.FC = () => {
                 {/* Click-to-Highlight 2D Hotspot Pins */}
                 {HOTSPOTS.map((spot) => {
                   const isSelected = selectedHotspot.id === spot.id;
+                  const currentPos = activePhoto === 'closeup' ? spot.closeup : spot.vehicle;
+                  const align = currentPos.tooltipAlign || 'center';
+
                   return (
                     <button
                       key={spot.id}
                       onClick={() => setSelectedHotspot(spot)}
                       style={{
-                        top: `${spot.yPercent}%`,
-                        left: `${spot.xPercent}%`
+                        top: `${currentPos.yPercent}%`,
+                        left: `${currentPos.xPercent}%`
                       }}
-                      className={`absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none transition-transform ${
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none transition-all duration-300 ${
                         isSelected ? 'scale-125 z-20' : 'hover:scale-110 z-10'
                       }`}
                       aria-label={spot.name}
@@ -189,11 +255,19 @@ export const HeadsetViewerSection: React.FC = () => {
                             : 'bg-[#0d1511]/90 text-[#00e5ff] border-[#00e5ff] hover:bg-[#00e5ff] hover:text-[#08100c]'
                         }`}
                       >
-                        {spot.id === 'ref_mic' ? '06' : spot.id === 'error_mic' ? '07' : spot.id === 'comm_mic' ? '08' : '•'}
+                        {spot.pinNumber}
                       </span>
 
-                      {/* Tooltip Tag */}
-                      <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-0.5 rounded bg-[#08100c]/95 border border-[#3b4a41] text-[9px] font-mono text-[#f0fdf4] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                      {/* Tooltip Tag with collision-aware offset */}
+                      <span
+                        className={`absolute mb-1.5 px-2 py-0.5 rounded bg-[#08100c]/95 border border-[#3b4a41] text-[9px] font-mono text-[#f0fdf4] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-30 shadow-md ${
+                          align === 'right'
+                            ? 'bottom-full right-0'
+                            : align === 'left'
+                            ? 'bottom-full left-0'
+                            : 'bottom-full left-1/2 -translate-x-1/2'
+                        }`}
+                      >
                         {spot.shortName}
                       </span>
                     </button>
